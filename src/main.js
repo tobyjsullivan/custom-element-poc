@@ -3,6 +3,26 @@ const ORIENTATION_HORIZONTAL = "horizontal";
 
 const PROP_ORIENTATION = "--list-orientation";
 
+function CustomListInner({ orientation }) {
+  if (![ORIENTATION_VERTICAL, ORIENTATION_HORIZONTAL].includes(orientation)) {
+    orientation = ORIENTATION_VERTICAL;
+  }
+
+  let message = null;
+  switch (orientation) {
+    case ORIENTATION_VERTICAL: {
+      message = "Vertical";
+      break;
+    }
+    case ORIENTATION_HORIZONTAL: {
+      message = "Horizontal";
+      break;
+    }
+  }
+
+  return React.createElement("p", null, `${message} (debug: ${orientation})`);
+}
+
 class CustomList extends HTMLElement {
   constructor() {
     super();
@@ -21,10 +41,11 @@ class CustomList extends HTMLElement {
     //      So it seems altering the dom based on style rules is precarious.
     //      However, is this the goal of the shadow dom? Style on current element cannot change due to adjustments within shadow boundary.
 
-    this.textBlock = document.createElement("p");
-    shadowRoot.appendChild(this.textBlock);
-
     this.styles = window.getComputedStyle(this);
+    this.reactRoot = ReactDOM.createRoot(shadowRoot);
+
+    // this.textBlock = document.createElement("p");
+    // shadowRoot.appendChild(this.textBlock);
 
     this.update();
   }
@@ -37,36 +58,13 @@ class CustomList extends HTMLElement {
     this.update();
   }
 
-  setOrientation(orientation) {
-    if (orientation === this.orientation) {
-      // No change
-      return;
-    }
-
-    this.orientation = orientation;
-
-    console.info(`[setOrientation] orientation:`, orientation);
-    switch (this.orientation) {
-      case ORIENTATION_VERTICAL: {
-        this.textBlock.innerHTML = "Vertical";
-        break;
-      }
-      case ORIENTATION_HORIZONTAL: {
-        this.textBlock.innerHTML = "Horizontal";
-        break;
-      }
-    }
-  }
-
   update() {
     let orientation = this.styles.getPropertyValue(PROP_ORIENTATION)?.trim();
     console.info(`[updateStyles] orientation:`, orientation);
 
-    if (![ORIENTATION_VERTICAL, ORIENTATION_HORIZONTAL].includes(orientation)) {
-      orientation = ORIENTATION_VERTICAL;
-    }
-
-    this.setOrientation(orientation);
+    this.reactRoot.render(
+      React.createElement(CustomListInner, { orientation }, null)
+    );
   }
 }
 
