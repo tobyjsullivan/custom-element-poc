@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<head>
+  <style>
+    custom-list {
+      --list-orientation: horizontal;
+    }
+
+    #exampleB custom-list {
+      --list-orientation: vertical;
+    }
+  </style>
+  <!-- TODO: Does this need to load before any custom elements attached? -->
+  <script src="./main.js"></script>
+</head>
+<body>
+  <div id="exampleA">
+    <custom-list></custom-list>
+  </div>
+  <div id="exampleB">
+    <custom-list></custom-list>
+  </div>
+</body>
