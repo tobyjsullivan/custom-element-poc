@@ -44,9 +44,6 @@ class CustomList extends HTMLElement {
     this.styles = window.getComputedStyle(this);
     this.reactRoot = ReactDOM.createRoot(shadowRoot);
 
-    // this.textBlock = document.createElement("p");
-    // shadowRoot.appendChild(this.textBlock);
-
     this.update();
   }
 
