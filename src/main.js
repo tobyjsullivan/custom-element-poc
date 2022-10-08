@@ -70,4 +70,37 @@ class CustomList extends HTMLElement {
   }
 }
 
-window.customElements.define("custom-list", CustomList);
+function Hello({ name }) {
+  return React.createElement("h1", null, `Hello, ${name}!`);
+}
+
+function VerticalList() {
+  const list = React.createElement("custom-list", null, null);
+
+  return React.createElement("div", { className: "vertical-list" }, [list]);
+}
+
+function HorizontalList() {
+  const list = React.createElement("custom-list", null, null);
+
+  return React.createElement("div", { className: "horizontal-list" }, [list]);
+}
+
+function Lists() {
+  const children = [
+    React.createElement(VerticalList, null, null),
+    React.createElement(HorizontalList, null, null),
+  ];
+
+  return React.createElement("div", { className: "lists-container" }, children);
+}
+
+function main() {
+  window.customElements.define("custom-list", CustomList);
+
+  const $root = document.getElementById("root");
+  const root = ReactDOM.createRoot($root);
+  root.render(React.createElement(Lists, null, null));
+}
+
+main();

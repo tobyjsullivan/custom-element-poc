@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <head>
   <style>
-    custom-list {
+    .horizontal-list custom-list {
       --list-orientation: horizontal;
     }
 
-    #exampleB custom-list {
+    .vertical-list custom-list {
       --list-orientation: vertical;
     }
   </style>
 </head>
 <body>
-  <div id="exampleA">
-    <custom-list></custom-list>
-  </div>
-  <div id="exampleB">
-    <custom-list></custom-list>
-  </div>
+  <div id="root"></div>
+  <script src="./third-party/react/react.dev.js"></script>
+  <script src="./third-party/react/react-dom.dev.js"></script>
   <script src="./main.js"></script>
 </body>
