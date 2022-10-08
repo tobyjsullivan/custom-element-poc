@@ -75,19 +75,19 @@ function Hello({ name }) {
 function VerticalList() {
   const list = React.createElement("custom-list", null, null);
 
-  return React.createElement("div", { className: "vertical-list" }, [list]);
+  return React.createElement("div", { className: "vertical-list" }, list);
 }
 
 function HorizontalList() {
   const list = React.createElement("custom-list", null, null);
 
-  return React.createElement("div", { className: "horizontal-list" }, [list]);
+  return React.createElement("div", { className: "horizontal-list" }, list);
 }
 
 function Lists() {
   const children = [
-    React.createElement(VerticalList, null, null),
-    React.createElement(HorizontalList, null, null),
+    React.createElement(VerticalList, { key: "vertical-example" }, null),
+    React.createElement(HorizontalList, { key: "horizontal-example" }, null),
   ];
 
   return React.createElement("div", { className: "lists-container" }, children);
